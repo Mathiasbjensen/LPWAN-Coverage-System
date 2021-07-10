@@ -620,7 +620,7 @@ void sendToESP(uint8_t * msg) {
 }
 
 
-void collectAndTransmitSARAMeasurement(){
+void collectSARAMeasurements(){
 
     HAL_UART_Transmit(&huart1, SARAcesq, strlen(SARAcesq), 50);
     HAL_UART_Receive(&huart1, saraCESQmessage, 70, 150);
@@ -709,7 +709,7 @@ void StartDefaultTask(void const * argument)
 
     SARA_ChangeTech('7');
 
-    collectAndTransmitSARAMeasurement();
+    collectSARAMeasurements();
     getGPSCoordinates();
     prepareSaraMeasurement(SARA_LTEM);
     sendToESP(SaraMeasurements);
@@ -718,7 +718,7 @@ void StartDefaultTask(void const * argument)
 
 	SARA_ChangeTech('9');
 
-    collectAndTransmitSARAMeasurement();
+    collectSARAMeasurements();
     getGPSCoordinates();
     prepareSaraMeasurement(SARA_NBIOT);
     sendToESP(SaraMeasurements);
