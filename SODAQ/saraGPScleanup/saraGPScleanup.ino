@@ -167,11 +167,6 @@
     return readUbloxI2cStream();
   }
   
-  size_t readConsole() 
-  {
-    return readSerialStream((Stream*)&CONSOLE_STREAM);
-  }
-  
   size_t readUbloxI2cStream()
   {
     uint16_t count = 0;
@@ -192,20 +187,6 @@
       updateGPSCoordinates();
     }
     return count;
-  }
-  
-  
-  size_t readSerialStream(Stream* stream) 
-  {
-    uint32_t last = millis();
-    size_t count = 0;
-    while ((count < BUFFER_SIZE) && (millis() < (last + READ_TIMEOUT_MS))) {
-      if (stream->available()) {
-        buffer[count++] = stream->read();
-        last = millis();
-      }
-    }
-    return count;  
   }
   
   void writeGPS(size_t count)
